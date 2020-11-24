@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 public class ChatServer {
 
     //evitar portas 80, 22, 21
-    private final int PORT = 4000;
+    public static final int PORT = 4000;
     private ServerSocket serverSocket;
 
     public void start() throws IOException {
