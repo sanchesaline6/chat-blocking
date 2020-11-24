@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.net.PortUnreachableException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class ChatServer {
 
@@ -9,8 +10,15 @@ public class ChatServer {
     private ServerSocket serverSocket;
 
     public void start() throws IOException {
-        System.out.println("Servidor iniciado na porta: " + PORT);
         serverSocket = new ServerSocket(PORT);
+        System.out.println("Servidor iniciado na porta: " + PORT);
+        clientConnectionLoop();
+    }
+    private void clientConnectionLoop() throws IOException {
+        while (true) {
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Cliente " + clientSocket.getRemoteSocketAddress() + " conectou");
+        }
     }
     public static void main(String[] args) {
 
