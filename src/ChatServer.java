@@ -1,4 +1,4 @@
-import java.io.IOException;
+import java.io.*;
 import java.net.PortUnreachableException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -8,6 +8,7 @@ public class ChatServer {
     //evitar portas 80, 22, 21
     public static final int PORT = 4000;
     private ServerSocket serverSocket;
+    private BufferedReader in;
 
     public void start() throws IOException {
         serverSocket = new ServerSocket(PORT);
@@ -18,6 +19,9 @@ public class ChatServer {
         while (true) {
             Socket clientSocket = serverSocket.accept();
             System.out.println("Cliente " + clientSocket.getRemoteSocketAddress() + " conectou");
+            this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            String msg = in.readLine();
+            System.out.println("Mensagem recebida do cliente: " + clientSocket.getRemoteSocketAddress() + ": " + msg);
         }
     }
     public static void main(String[] args) {
